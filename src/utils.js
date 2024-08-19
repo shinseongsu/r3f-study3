@@ -1,3 +1,3 @@
 export const isValidText = (text) => {
-  return Boolean(text && text.trime() !== "");
+  return Boolean(text && text.trim() !== "");
 };

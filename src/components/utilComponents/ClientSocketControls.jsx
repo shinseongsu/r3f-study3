@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { socket } from "../../sockets/clientSocket";
+import { useRecoilState } from "recoil";
+import { MeAtom } from "../../store/PlayersAtom";
 
 export const ClientSocketControls = () => {
+  const [me, setMe] = useRecoilState(MeAtom);
+
   const handleConnect = () => {
     console.info("연결됨");
   };
@@ -10,7 +14,9 @@ export const ClientSocketControls = () => {
     console.info("연결이 끊김");
   };
 
-  const handleInitialize = () => {
+  const handleInitialize = (value) => {
+    console.log(value);
+    setMe(value);
     console.info("초기화됨");
   };
 

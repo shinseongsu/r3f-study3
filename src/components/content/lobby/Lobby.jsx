@@ -6,15 +6,16 @@ import {
   SelectedCharacterGlbNameIndexAtom,
 } from "../../../store/PlayersAtom";
 import { isValidText } from "../../../utils";
+import styled from "styled-components";
+import { MainCanvas } from "../canvas/MainCanvas";
+import { socket } from "../../../sockets/clientSocket";
 
 export const Lobby = () => {
   const [currentStep, setCurrentStep] = useState(STEPS.NICK_NAME);
   const [tempNickName, setTempNickname] = useState();
-  const [tempJobPosition, setTempNickname] = useState();
-  const [
-    selectedCharacterGlbNameIndexAtom,
-    setSelectedCharacterGlbNameIndexAtom,
-  ] = useRecoilState(SelectedCharacterGlbNameIndexAtom);
+  const [tempJobPosition, setTempJobPosition] = useState();
+  const [selectedCharacterGlbNameIndex, setSelectedCharacterGlbNameIndex] =
+    useRecoilState(SelectedCharacterGlbNameIndexAtom);
   const setCharacterSelectFinished = useSetRecoilState(
     CharacterSelectFinishedAtom
   );
@@ -29,7 +30,7 @@ export const Lobby = () => {
             autoFocus
             placeholder="별명을 입력해주세요."
             onChange={(e) => setTempNickname(e.target.value)}
-            onKeyup={(e) => {
+            onKeyUp={(e) => {
               if (!isValidText(tempNickName)) return;
               if (e.key === "Enter") {
                 setCurrentStep(STEPS.JOB_POSITION);
@@ -54,28 +55,96 @@ export const Lobby = () => {
             <Input
               autoFocus
               placeholder="개발 직군을 입력해주세요."
-              onChange={(e) => setTempNickname(e.target.value)}
-              onKeyup={(e) => {
-                if (!isValidText(tempNickName)) return;
+              onChange={(e) => setTempJobPosition(e.target.value)}
+              onKeyUp={(e) => {
+                if (!isValidText(tempJobPosition)) return;
                 if (e.key === "Enter") {
-                  setCurrentStep(STEPS.JOB_POSITION);
+                  setCurrentStep((prev) => prev + 1);
                 }
               }}
             />
             <NextBtn
-              disabled={!isValidText(tempNickName)}
-              className={isValidText(tempNickName) ? "valid" : "disabled"}
+              disabled={!isValidText(tempJobPosition)}
+              className={isValidText(tempJobPosition) ? "valid" : "disabled"}
               onClick={() => {
-                setCurrentStep(STEPS.JOB_POSITION);
+                setCurrentStep((prev) => prev + 1);
               }}
             >
               이대로 진행할래요
             </NextBtn>
+            <PrevBtn
+              onClick={() => {
+                setCurrentStep((prev) => prev - 1);
+                setTempNickname();
+              }}
+            >
+              이전으로 돌아갈래요
+            </PrevBtn>
           </>
         </>
       )}
-      ;{currentStep === STEPS.CHARACTER && <></>};
-      {currentStep === STEPS.FINISH && <></>};
+      {currentStep === STEPS.CHARACTER && (
+        <>
+          <LoginTitle>페디에서 사용할 내 아바타를 고를시간이에요</LoginTitle>
+          <CharacterCanvasContainer>
+            <CharacterTunningWrapper>
+              <CharacterCanvasWrapper>
+                <MainCanvas />
+              </CharacterCanvasWrapper>
+            </CharacterTunningWrapper>
+
+            <NextBtn
+              className={
+                !tempNickName || !tempJobPosition ? "disabled" : "valid"
+              }
+              onClick={(e) => {
+                if (!tempNickName || !tempJobPosition) return;
+
+                socket.emit("initialize", {
+                  tempNickName,
+                  tempJobPosition,
+                  selectedCharacterGlbNameIndex,
+                  myRoom: { object: [] },
+                });
+                setCharacterSelectFinished(true);
+              }}
+              onKeyUp={(e) => {
+                if (!tempNickName || !tempJobPosition) return;
+                if (e.key === "Enter") {
+                  socket.emit("initialize", {
+                    tempNickName,
+                    tempJobPosition,
+                    selectedCharacterGlbNameIndex,
+                    myRoom: { object: [] },
+                  });
+                  setCharacterSelectFinished(true);
+                }
+              }}
+            >
+              이 모습으로 진행할래요
+            </NextBtn>
+            <PrevBtn
+              onClick={() => {
+                setSelectedCharacterGlbNameIndex((prev) => {
+                  if (prev === undefined) return 1;
+                  if (prev === 2) return 0;
+                  return prev + 1;
+                });
+              }}
+            >
+              다른 케릭터도 볼래요
+            </PrevBtn>
+            <PrevBtn
+              onClick={() => {
+                setCurrentStep((prev) => prev - 1);
+              }}
+            >
+              이전으로 돌아갈래요
+            </PrevBtn>
+          </CharacterCanvasContainer>
+        </>
+      )}
+      {currentStep === STEPS.FINISH && <></>}
     </LoginContainer>
   );
 };
@@ -96,11 +165,32 @@ const LoginTitle = styled.div`
   font-weight: 700;
 `;
 
-const CharacterCanvasContainer = styled.div``;
+const CharacterCanvasContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 1200px;
+  height: 80%;
+`;
 
-const CharacterTunningWrapper = styled.div``;
+const CharacterTunningWrapper = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
 
-const CharacterCanvasWrapper = styled.div``;
+const CharacterCanvasWrapper = styled.div`
+  flex: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Input = styled.input`
   font-size: 24px;
@@ -139,4 +229,14 @@ const NextBtn = styled.button`
   }
 `;
 
-const PrevBtn = styled.button``;
+const PrevBtn = styled.button`
+  padding: 10px;
+  width: 200px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  color: #666666;
+  cursor: pointer;
+`;

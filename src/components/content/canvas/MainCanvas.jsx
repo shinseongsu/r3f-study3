@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Player } from "./maps/player";
 import { RootMap } from "./maps/RootMap";
 
 export const MainCanvas = () => {
@@ -31,10 +30,9 @@ export const MainCanvas = () => {
         shadow-camera-top={25}
         shadow-camera-bottom={-25}
         shadow-camera-near={0.1}
-        shadow-camera-far={200}
+        shadow-camera-far={50}
       />
       <OrbitControls />
-      <Player />
       <RootMap />
     </Canvas>
   );

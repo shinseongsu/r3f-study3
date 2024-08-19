@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { CharacterSelectFinishedAtom, MeAtom } from "../../store/PlayersAtom";
-import { MainCanvas } from "../MainCanvas";
+import { MainCanvas } from "./canvas/MainCanvas";
 import { CanvasLayout } from "./canvasLayout/Layout";
 import { Lobby } from "./lobby/Lobby";
 
