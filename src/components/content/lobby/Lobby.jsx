@@ -97,7 +97,7 @@ export const Lobby = () => {
               className={
                 !tempNickName || !tempJobPosition ? "disabled" : "valid"
               }
-              onClick={(e) => {
+              onClick={() => {
                 if (!tempNickName || !tempJobPosition) return;
 
                 socket.emit("initialize", {

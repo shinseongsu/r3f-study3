@@ -30,7 +30,7 @@ export const MainCanvas = () => {
         shadow-camera-top={25}
         shadow-camera-bottom={-25}
         shadow-camera-near={0.1}
-        shadow-camera-far={50}
+        shadow-camera-far={200}
       />
       <OrbitControls />
       <RootMap />
