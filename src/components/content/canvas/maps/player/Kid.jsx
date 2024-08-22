@@ -45,5 +45,3 @@ export function Kid({ player, position, modelIndex }) {
     </group>
   );
 }
-
-useGLTF.preload("/CubeGuyCharacter.glb");
