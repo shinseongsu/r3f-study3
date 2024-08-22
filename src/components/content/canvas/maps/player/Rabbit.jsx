@@ -31,18 +31,22 @@ export function Rabbit({ player, position, modelIndex }) {
               <primitive object={nodes.Root} />
             </group>
             <skinnedMesh
-              name="Atlas"
-              geometry={nodes.Atlas.geometry}
+              name="Mesh"
+              geometry={nodes.Mesh.geometry}
               material={materials.white}
-              skeleton={nodes.Atlas.skeleton}
-              scale={0.01}
+              skeleton={nodes.Mesh.skeleton}
             />
             <skinnedMesh
-              name="Atlas_1"
-              geometry={nodes.Atlas_1.geometry}
+              name="Mesh_1"
+              geometry={nodes.Mesh_1.geometry}
+              material={materials.black}
+              skeleton={nodes.Mesh_1.skeleton}
+            />
+            <skinnedMesh
+              name="Mesh_2"
+              geometry={nodes.Mesh_2.geometry}
               material={materials.pink}
-              skeleton={nodes.Atlas_1.skeleton}
-              scale={0.01}
+              skeleton={nodes.Mesh_2.skeleton}
             />
           </group>
         </group>
