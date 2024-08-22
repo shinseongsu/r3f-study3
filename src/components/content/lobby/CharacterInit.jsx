@@ -6,6 +6,7 @@ import { Vector3 } from "three";
 import { Man } from "../canvas/maps/player/Man";
 import { Woman } from "../canvas/maps/player/Woman";
 import { Kid } from "../canvas/maps/player/Kid";
+import { Rabbit } from "../canvas/maps/player/Rabbit";
 import { useEffect, useRef } from "react";
 
 export const CharacterInit = () => {
@@ -43,6 +44,13 @@ export const CharacterInit = () => {
           player={undefined}
           position={new Vector3(0, 0, 0)}
           modelIndex={2}
+        />
+      )}
+      {selectedCharacterGlbNameIndex === 3 && (
+        <Rabbit
+          player={undefined}
+          position={new Vector3(0, 0, 0)}
+          modelIndex={3}
         />
       )}
 

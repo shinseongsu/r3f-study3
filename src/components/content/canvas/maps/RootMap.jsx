@@ -11,6 +11,7 @@ import { Man } from "./player/Man";
 import { Kid } from "./player/Kid";
 import { Vector3 } from "three";
 import { Woman } from "./player/Woman";
+import { Rabbit } from "./player/Rabbit";
 
 export const RootMap = () => {
   const [characterSelectFinished] = useRecoilState(CharacterSelectFinishedAtom);
@@ -62,6 +63,18 @@ export const RootMap = () => {
                 )}
                 {player.selectedCharacterGlbNameIndex === 2 && (
                   <Kid
+                    player={player}
+                    position={
+                      new Vector3(
+                        player.position[0],
+                        player.position[1],
+                        player.position[2]
+                      )
+                    }
+                  />
+                )}
+                {player.selectedCharacterGlbNameIndex === 3 && (
+                  <Rabbit
                     player={player}
                     position={
                       new Vector3(

@@ -127,7 +127,7 @@ export const Lobby = () => {
               onClick={() => {
                 setSelectedCharacterGlbNameIndex((prev) => {
                   if (prev === undefined) return 1;
-                  if (prev === 2) return 0;
+                  if (prev === 3) return 0;
                   return prev + 1;
                 });
               }}

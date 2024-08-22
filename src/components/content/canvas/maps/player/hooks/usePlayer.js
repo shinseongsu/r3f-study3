@@ -19,6 +19,8 @@ export const usePlayer = ({ player, position, modelIndex }) => {
           return `/models/CubeWomanCharacter.glb`;
         case 2:
           return `/models/Steve.glb`;
+        case 3:
+          return `/models/Rabbit.glb`;
         default:
           return "";
       }
@@ -54,7 +56,13 @@ export const usePlayer = ({ player, position, modelIndex }) => {
       playerRef.current.position.sub(direction);
       playerRef.current.lookAt(position);
 
-      setAnimation("CharacterArmature|CharacterArmature|CharacterArmature|Run");
+      if (actions.walk) {
+        setAnimation("walk");
+      } else {
+        setAnimation(
+          "CharacterArmature|CharacterArmature|CharacterArmature|Run"
+        );
+      }
     } else {
       setAnimation(
         "CharacterArmature|CharacterArmature|CharacterArmature|Idle"
