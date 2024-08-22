@@ -14,7 +14,7 @@ export const usePlayer = ({ player, position, modelIndex }) => {
     (() => {
       switch (modelIndex) {
         case 0:
-          return `/models/Rabbit.glb`;
+          return `/models/CubeGuyCharacter.glb`;
         case 1:
           return `/models/CubeWomanCharacter.glb`;
         case 2:
