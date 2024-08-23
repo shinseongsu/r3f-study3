@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unknown-property */
+import React from "react";
 import { useLoader } from "@react-three/fiber";
 import { RepeatWrapping, TextureLoader } from "three";
 import { groundMapSize } from "../../../../../../../data/constants";
