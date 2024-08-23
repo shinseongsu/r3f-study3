@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { RootMap } from "./maps/RootMap";
@@ -15,7 +14,7 @@ export const MainCanvas = () => {
         fov: 30,
         aspect: aspectRatio,
         near: 0.01,
-        far: 100000,
+        far: 1000000,
         position: [12, 12, 12],
       }}
     >
