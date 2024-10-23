@@ -25,10 +25,10 @@ export const Lobby = () => {
     <LoginContainer>
       {currentStep === STEPS.NICK_NAME && (
         <>
-          <LoginTitle>패디에서 사용할 내 이름이예요.</LoginTitle>
+          <LoginTitle>Please tell me your name.</LoginTitle>
           <Input
             autoFocus
-            placeholder="별명을 입력해주세요."
+            placeholder="Please enter your name."
             onChange={(e) => setTempNickname(e.target.value)}
             onKeyUp={(e) => {
               if (!isValidText(tempNickName)) return;
@@ -44,17 +44,17 @@ export const Lobby = () => {
               setCurrentStep(STEPS.JOB_POSITION);
             }}
           >
-            이대로 진행할래요
+            Next
           </NextBtn>
         </>
       )}
       {currentStep === STEPS.JOB_POSITION && (
         <>
           <>
-            <LoginTitle>패디에서 공유할 내 직군이예요.</LoginTitle>
+            <LoginTitle>A brief introduction about myself.</LoginTitle>
             <Input
               autoFocus
-              placeholder="개발 직군을 입력해주세요."
+              placeholder=""
               onChange={(e) => setTempJobPosition(e.target.value)}
               onKeyUp={(e) => {
                 if (!isValidText(tempJobPosition)) return;
@@ -70,7 +70,7 @@ export const Lobby = () => {
                 setCurrentStep((prev) => prev + 1);
               }}
             >
-              이대로 진행할래요
+              Next
             </NextBtn>
             <PrevBtn
               onClick={() => {
@@ -78,14 +78,14 @@ export const Lobby = () => {
                 setTempNickname();
               }}
             >
-              이전으로 돌아갈래요
+              Back
             </PrevBtn>
           </>
         </>
       )}
       {currentStep === STEPS.CHARACTER && (
         <>
-          <LoginTitle>페디에서 사용할 내 아바타를 고를시간이에요</LoginTitle>
+          <LoginTitle>Please choose a character.</LoginTitle>
           <CharacterCanvasContainer>
             <CharacterTunningWrapper>
               <CharacterCanvasWrapper>
@@ -121,7 +121,7 @@ export const Lobby = () => {
                 }
               }}
             >
-              이 모습으로 진행할래요
+              Go
             </NextBtn>
             <PrevBtn
               onClick={() => {
@@ -132,14 +132,14 @@ export const Lobby = () => {
                 });
               }}
             >
-              다른 케릭터도 볼래요
+              I want to see other characters.
             </PrevBtn>
             <PrevBtn
               onClick={() => {
                 setCurrentStep((prev) => prev - 1);
               }}
             >
-              이전으로 돌아갈래요
+              Back
             </PrevBtn>
           </CharacterCanvasContainer>
         </>
